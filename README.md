@@ -36,16 +36,17 @@ This:
 tail -f ~/Library/Logs/rode-output-guard.log
 ```
 
-Expected lines (device names below are placeholders):
+Expected lines (device names below are placeholders — the guard reverts to whatever *you* last chose, not to a hard-coded target):
 
 ```
 [...] [output] startup: current default is '<YourOutput>' (UID <uid>) — remembered as last-good
 [...] [output] listening (guarded UIDs: RodeConnectAudioDevice_UID, RodeConnectAudioDevice_UID_2, RodeConnectAudioDevice_UID_3)
-[...] [input] startup: current default is 'RØDE Connect Stream' (UID RodeConnectAudioDevice_UID_3) — remembered as last-good
-[...] [input] listening (guarded UIDs: RodeConnectAudioDevice_UID, RodeConnectAudioDevice_UID_2)
+[...] [input]  startup: current default is '<YourInput>' (UID <uid>) — remembered as last-good
+[...] [input]  listening (guarded UIDs: RodeConnectAudioDevice_UID, RodeConnectAudioDevice_UID_2)
 [...] [output] blocked hijack: 'RØDE Connect System' → reverted to '<YourOutput>'
-[...] [input] blocked hijack: 'RØDE Connect System' → reverted to 'RØDE Connect Stream'
+[...] [input]  blocked hijack: 'RØDE Connect System' → reverted to '<YourInput>'
 [...] [output] accepted user change: new last-good = '<AnotherOutput>'
+[...] [input]  accepted user change: new last-good = '<AnotherInput>'
 ```
 
 ## Uninstall
