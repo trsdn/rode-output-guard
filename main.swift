@@ -91,7 +91,7 @@ func log(_ message: String) {
 // The last non-RØDE device we saw as the default. When RØDE hijacks, we
 // restore this. `0` means we haven't observed a safe default yet.
 var lastGoodDeviceID: AudioDeviceID = 0
-let stateQueue = DispatchQueue(label: "com.tm.rode-output-guard.state")
+let stateQueue = DispatchQueue(label: "rode-output-guard.state")
 
 // Initialise: if the current default is already safe (not RØDE), remember it.
 if let current = getDefaultOutputDeviceID(),
@@ -114,7 +114,7 @@ var watchAddr = AudioObjectPropertyAddress(
     mElement: kAudioObjectPropertyElementMain
 )
 
-let listenerQueue = DispatchQueue(label: "com.tm.rode-output-guard.listener")
+let listenerQueue = DispatchQueue(label: "rode-output-guard.listener")
 
 let listener: AudioObjectPropertyListenerBlock = { _, _ in
     guard let current = getDefaultOutputDeviceID() else { return }

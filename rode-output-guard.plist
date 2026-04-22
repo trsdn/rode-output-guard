@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
     <key>Label</key>
-    <string>com.tm.rode-output-guard</string>
+    <string>rode-output-guard</string>
 
     <key>ProgramArguments</key>
     <array>

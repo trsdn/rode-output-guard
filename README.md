@@ -4,7 +4,7 @@ A tiny macOS LaunchAgent that stops RØDE Connect from hijacking your system aud
 
 ## The problem
 
-Every time RØDE Connect launches, it forces the macOS default output to one of its virtual devices (`RØDE Connect System` / `Virtual` / `Stream`). Even if you had ML301, AirPods, or built-in speakers selected, RØDE overrides it. There's no opt-out in RØDE Connect 1.3.x's UI.
+Every time RØDE Connect launches, it forces the macOS default output to one of its virtual devices (`RØDE Connect System` / `Virtual` / `Stream`). Whatever you had selected before — headphones, external speakers, AirPods — gets overridden. There's no opt-out in RØDE Connect 1.3.x's UI.
 
 ## What it does
 
@@ -22,7 +22,7 @@ Every time RØDE Connect launches, it forces the macOS default output to one of 
 This:
 1. Compiles the Swift source into a standalone arm64 binary.
 2. Copies it to `~/.local/bin/rode-output-guard`.
-3. Writes a LaunchAgent to `~/Library/LaunchAgents/com.tm.rode-output-guard.plist`.
+3. Writes a LaunchAgent to `~/Library/LaunchAgents/rode-output-guard.plist`.
 4. Loads the agent so it starts at login and after every logout.
 
 ## Logs
@@ -31,20 +31,20 @@ This:
 tail -f ~/Library/Logs/rode-output-guard.log
 ```
 
-Expected lines:
+Expected lines (device names below are placeholders):
 
 ```
-[2026-04-22 20:01:12.334] startup: current default is 'ML301' (UID 00-02-5B-00-FF-08:output) — remembered as last-good
-[2026-04-22 20:01:12.335] listening on kAudioHardwarePropertyDefaultOutputDevice …
-[2026-04-22 20:05:44.112] blocked RØDE hijack: 'RØDE Connect System' → reverted to 'ML301'
-[2026-04-22 20:10:02.870] accepted user change: new last-good = 'AirPods Pro'
+[...] startup: current default is '<YourOutput>' (UID <uid>) — remembered as last-good
+[...] listening on kAudioHardwarePropertyDefaultOutputDevice …
+[...] blocked RØDE hijack: 'RØDE Connect System' → reverted to '<YourOutput>'
+[...] accepted user change: new last-good = '<AnotherOutput>'
 ```
 
 ## Uninstall
 
 ```sh
-launchctl unload ~/Library/LaunchAgents/com.tm.rode-output-guard.plist
-rm ~/Library/LaunchAgents/com.tm.rode-output-guard.plist
+launchctl unload ~/Library/LaunchAgents/rode-output-guard.plist
+rm ~/Library/LaunchAgents/rode-output-guard.plist
 rm ~/.local/bin/rode-output-guard
 ```
 

@@ -2,7 +2,7 @@
 # Install rode-output-guard as a LaunchAgent.
 #   - compiles the binary
 #   - copies it to ~/.local/bin/rode-output-guard
-#   - writes ~/Library/LaunchAgents/com.tm.rode-output-guard.plist with correct paths
+#   - writes ~/Library/LaunchAgents/rode-output-guard.plist with correct paths
 #   - launchctl unload + load
 #   - tails the log briefly to confirm startup
 
@@ -12,7 +12,7 @@ cd "$(dirname "$0")"
 BIN_DIR="$HOME/.local/bin"
 BIN_PATH="$BIN_DIR/rode-output-guard"
 AGENT_DIR="$HOME/Library/LaunchAgents"
-AGENT_PATH="$AGENT_DIR/com.tm.rode-output-guard.plist"
+AGENT_PATH="$AGENT_DIR/rode-output-guard.plist"
 LOG_DIR="$HOME/Library/Logs"
 LOG_PATH="$LOG_DIR/rode-output-guard.log"
 
@@ -29,7 +29,7 @@ echo "→ writing LaunchAgent to $AGENT_PATH"
 sed \
     -e "s|__BINARY_PATH__|$BIN_PATH|g" \
     -e "s|__LOG_PATH__|$LOG_PATH|g" \
-    com.tm.rode-output-guard.plist > "$AGENT_PATH"
+    rode-output-guard.plist > "$AGENT_PATH"
 
 echo "→ reloading LaunchAgent"
 launchctl unload "$AGENT_PATH" 2>/dev/null || true
